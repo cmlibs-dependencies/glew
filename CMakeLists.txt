@@ -111,7 +111,7 @@ set (GLEW_PUBLIC_HEADERS_FILES ${GLEW_DIR}/include/GL/wglew.h ${GLEW_DIR}/includ
 set (GLEW_SRC_FILES ${GLEW_DIR}/src/glew.c)
 
 if (WIN32)
-  list (APPEND GLEW_SRC_FILES ${GLEW_DIR}/build/glew.rc)
+  #list (APPEND GLEW_SRC_FILES ${GLEW_DIR}/build/glew.rc)
 endif ()
 
 if (GLEW_BUILD_SHARED)
@@ -224,7 +224,7 @@ install ( TARGETS ${targets_to_install}
 if (BUILD_UTILS)
   set (GLEWINFO_SRC_FILES ${GLEW_DIR}/src/glewinfo.c)
   if (WIN32)
-    list (APPEND GLEWINFO_SRC_FILES ${GLEW_DIR}/build/glewinfo.rc)
+    #list (APPEND GLEWINFO_SRC_FILES ${GLEW_DIR}/build/glewinfo.rc)
   endif ()
   add_executable (glewinfo ${GLEWINFO_SRC_FILES})
   if(GLEW_BUILD_SHARED)
@@ -238,7 +238,7 @@ if (BUILD_UTILS)
 
   set (VISUALINFO_SRC_FILES ${GLEW_DIR}/src/visualinfo.c)
   if (WIN32)
-    list (APPEND VISUALINFO_SRC_FILES ${GLEW_DIR}/build/visualinfo.rc)
+    #list (APPEND VISUALINFO_SRC_FILES ${GLEW_DIR}/build/visualinfo.rc)
   endif ()
   add_executable (visualinfo ${VISUALINFO_SRC_FILES})
   if(GLEW_BUILD_SHARED)
@@ -275,11 +275,13 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/glew.pc
 )
 
 if(WIN32 AND MSVC AND (NOT MSVC_VERSION LESS 1600) AND (NOT CMAKE_VERSION VERSION_LESS "3.1"))
-  install(
-    FILES $<TARGET_PDB_FILE:glew>
-    DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    CONFIGURATIONS Debug RelWithDebInfo
-  )
+  if(TARGET glew)
+    install(
+      FILES $<TARGET_PDB_FILE:glew>
+      DESTINATION ${CMAKE_INSTALL_LIBDIR}
+      CONFIGURATIONS Debug RelWithDebInfo
+    )
+  endif()
 endif()
 
 install (FILES
