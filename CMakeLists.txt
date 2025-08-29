@@ -1,3 +1,5 @@
+cmake_minimum_required (VERSION 3.18)
+
 if ( NOT DEFINED CMAKE_BUILD_TYPE )
   set( CMAKE_BUILD_TYPE Release CACHE STRING "Build type" )
 endif ()
@@ -15,8 +17,6 @@ if(POLICY CMP0048)
 endif ()
 
 project (glew C)
-
-cmake_minimum_required (VERSION 3.10)
 
 include(GNUInstallDirs)
 
